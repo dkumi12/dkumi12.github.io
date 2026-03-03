@@ -1,612 +1,1003 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>David Osei Kumi - Cloud & ML Engineer Portfolio</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="David Osei Kumi - Cloud Engineer & ML Specialist. AWS certified professional with expertise in serverless architectures, machine learning, and AI systems.">
-  <meta name="keywords" content="AWS, Cloud Engineer, Machine Learning, AI, Serverless, SageMaker, Lambda, MLOps">
-  <meta name="author" content="David Osei Kumi">
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="David Osei Kumi - Cloud & ML Engineer">
-  <meta property="og:description" content="AWS Cloud Engineer & ML Specialist | Serverless Architectures | AI/ML Systems">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dkumi12.github.io">
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="David Osei Kumi - Cloud & ML Engineer">
-  <meta name="twitter:description" content="AWS Cloud Engineer & ML Specialist specializing in serverless architectures and AI systems">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="David Osei Kumi — Cloud + AI/ML Engineer. AWS, serverless, MLOps, RAG systems, and production-grade deployments." />
+  <title>David Osei Kumi — Cloud + AI/ML Portfolio</title>
+
+  <!--
+    Single-file portfolio template (HTML+CSS+JS)
+    - Sticky nav + anchor wayfinding
+    - Featured case studies + All projects with filters
+    - Recruiter Mode (dense view)
+    - Accessibility: focus styles, skip link, reduced motion support
+  -->
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg0:#0b0c10;
+      --bg1:#0f1220;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --stroke: rgba(255,255,255,.12);
+      --stroke2: rgba(255,255,255,.18);
+      --text:#f3f4f6;
+      --muted: rgba(243,244,246,.72);
+      --muted2: rgba(243,244,246,.55);
+      --brand1:#7c3aed; /* purple */
+      --brand2:#22d3ee; /* cyan */
+      --brand3:#fb7185; /* rose */
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 12px;
+      --max: 1120px;
+      --pad: 28px;
+
+      --h1: clamp(2.2rem, 4.2vw, 3.5rem);
+      --h2: clamp(1.65rem, 2.6vw, 2.3rem);
+      --h3: 1.15rem;
+      --p: 1.02rem;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: #f5f5f5;
-      color: #1a1a1a;
-      overflow-x: hidden;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(900px 600px at 10% 10%, rgba(124,58,237,.18), transparent 55%),
+        radial-gradient(900px 600px at 80% 15%, rgba(34,211,238,.14), transparent 55%),
+        radial-gradient(900px 600px at 70% 90%, rgba(251,113,133,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x:hidden;
     }
 
-    .page {
-      min-height: 100vh;
-      padding: 60px 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      background: white;
-      margin-bottom: 2px;
-    }
+    a{color:inherit}
+    a:focus{outline:3px solid rgba(34,211,238,.65); outline-offset:3px; border-radius:10px}
+    button:focus{outline:3px solid rgba(34,211,238,.65); outline-offset:3px; border-radius:10px}
 
-    .page-number {
-      position: absolute;
-      top: 40px;
-      right: 80px;
+    .skip{
+      position:absolute; left:-999px; top:8px;
+      background: rgba(255,255,255,.12);
+      border:1px solid var(--stroke);
+      padding:10px 14px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+    }
+    .skip:focus{left:10px}
+
+    .wrap{max-width: var(--max); margin:0 auto; padding: 0 18px}
+
+    /* Nav */
+    .nav{
+      position: sticky;
+      top:0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: rgba(11,12,16,.62);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none;
+      min-width: 180px;
+    }
+    .mark{
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.92));
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      display:grid; place-items:center;
+      font-family: var(--mono);
       font-size: 14px;
-      color: #999;
+      letter-spacing: .08em;
     }
+    .brand b{display:block; font-size: 13px; letter-spacing:.02em}
+    .brand span{display:block; font-size: 12px; color: var(--muted2)}
 
-    .page-label {
-      position: absolute;
-      top: 40px;
-      left: 80px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #999;
-    }
-
-    .arrow {
-      position: absolute;
-      bottom: 40px;
-      right: 80px;
-      font-size: 48px;
-      color: #1a1a1a;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .arrow:hover {
-      transform: translateY(5px);
-    }
-
-    h1 {
-      font-size: clamp(80px, 12vw, 180px);
-      font-weight: 300;
-      line-height: 0.9;
-      letter-spacing: -3px;
-      margin-bottom: 40px;
-    }
-
-    h2 {
-      font-size: clamp(60px, 8vw, 120px);
-      font-weight: 300;
-      line-height: 0.95;
-      letter-spacing: -2px;
-      margin-bottom: 60px;
-    }
-
-    h3 {
-      font-size: 36px;
-      font-weight: 400;
-      margin-bottom: 20px;
-      letter-spacing: -1px;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      color: #666;
-      max-width: 600px;
-      line-height: 1.6;
-      margin-top: 20px;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      margin-bottom: 0;
-    }
-
-    .hero-image {
-      width: 100%;
-      height: 400px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-image::after {
-      content: 'AWS • AI/ML • RAG';
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      color: white;
-      font-size: 14px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .about-content {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #444;
-    }
-
-    .about-content p {
-      margin-bottom: 20px;
-    }
-
-    .about-image {
-      width: 100%;
-      height: 500px;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    .project-card {
-      padding: 40px;
-      background: #fafafa;
-      border: 1px solid #e0e0e0;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .project-card:hover {
-      background: white;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      transform: translateY(-5px);
-    }
-
-    .project-number {
-      font-size: 48px;
-      font-weight: 300;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .project-title {
-      font-size: 28px;
-      font-weight: 400;
-      margin-bottom: 15px;
-      letter-spacing: -0.5px;
-    }
-
-    .project-desc {
-      font-size: 15px;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .project-link {
-      display: inline-block;
-      font-size: 14px;
-      color: #1a1a1a;
-      text-decoration: none;
-      border-bottom: 2px solid #1a1a1a;
-      padding-bottom: 2px;
-      transition: opacity 0.3s ease;
-      margin-right: 15px;
-    }
-
-    .project-link:hover {
-      opacity: 0.6;
-    }
-
-    .tech-stack {
-      display: flex;
+    .nav-links{
+      display:flex;
+      gap: 14px;
+      align-items:center;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 20px;
+      justify-content:center;
+    }
+    .nav-links a{
+      text-decoration:none;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover{color: var(--text); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.10)}
+
+    .nav-cta{
+      display:flex; gap:10px; align-items:center;
+      min-width: 250px;
+      justify-content: flex-end;
     }
 
-    .tech-tag {
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-size: 13px;
+      font-weight: 600;
+      display:inline-flex;
+      gap: 10px;
+      align-items:center;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.22)}
+
+    .btn-primary{
+      border: 1px solid rgba(34,211,238,.35);
+      background: linear-gradient(135deg, rgba(124,58,237,.60), rgba(34,211,238,.35));
+    }
+
+    .pill{
+      font-family: var(--mono);
       font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 6px 12px;
-      background: #e8e8e8;
-      color: #666;
+      letter-spacing: .04em;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+    }
+
+    /* Sections */
+    section{
+      padding: 70px 0;
+    }
+    .hero{
+      padding-top: 44px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card{
+      padding: clamp(20px, 2.8vw, 34px);
+      position: relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(700px 420px at 15% 15%, rgba(124,58,237,.25), transparent 50%),
+        radial-gradient(700px 420px at 85% 30%, rgba(34,211,238,.18), transparent 55%),
+        radial-gradient(700px 420px at 70% 90%, rgba(251,113,133,.12), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+      filter: blur(2px);
+    }
+    .hero-card > *{position:relative}
+
+    h1{
+      font-size: var(--h1);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 14px 0 10px;
+    }
+    h2{
+      font-size: var(--h2);
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+    }
+    h3{
+      font-size: var(--h3);
+      letter-spacing: -0.01em;
+      margin: 0 0 10px;
+    }
+
+    p{font-size: var(--p); color: var(--muted); margin: 0}
+
+    .kicker{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+    }
+
+    .lead{
+      max-width: 62ch;
+      margin-top: 10px;
+      color: rgba(243,244,246,.78);
+    }
+
+    .cta-row{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 18px;
+    }
+
+    .proof{
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .stat{
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .stat b{display:block; font-size: 14px}
+    .stat span{display:block; font-size: 12px; color: var(--muted2); margin-top: 4px}
+
+    .side{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+    }
+    .side .mini{
+      padding: 14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .mini h3{margin:0 0 8px; font-size: 14px}
+    .mini p{font-size: 13px}
+
+    .list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .list li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .dot{
+      width: 10px; height: 10px;
       border-radius: 3px;
-      font-weight: 500;
+      background: linear-gradient(135deg, rgba(124,58,237,.9), rgba(34,211,238,.7));
+      margin-top: 5px;
+      flex: 0 0 10px;
     }
 
-    .section-intro {
-      max-width: 800px;
-      margin-bottom: 60px;
+    .section-head{
+      display:flex;
+      justify-content: space-between;
+      align-items:flex-end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .section-head p{max-width: 70ch}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:center;
+      justify-content:flex-end;
     }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 100px;
-      margin-top: 60px;
-    }
-
-    .contact-item {
-      margin-bottom: 40px;
-    }
-
-    .contact-label {
+    .chip{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
       font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #999;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .chip:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.24)}
+    .chip[aria-pressed="true"]{
+      color: var(--text);
+      border-color: rgba(34,211,238,.42);
+      background: rgba(34,211,238,.10);
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .proj{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      display:flex;
+      flex-direction:column;
+      min-height: 240px;
+    }
+    .proj:hover{
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.24);
+      background: rgba(255,255,255,.07);
+    }
+
+    .proj-top{
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items:flex-start;
       margin-bottom: 10px;
     }
 
-    .contact-value {
-      font-size: 24px;
-      color: #1a1a1a;
+    .badge{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(243,244,246,.74);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.12);
+      white-space: nowrap;
     }
 
-    .contact-value a {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 2px solid #1a1a1a;
-      transition: opacity 0.3s ease;
+    .proj h3{font-size: 16px; margin:0}
+    .proj p{font-size: 13px; margin-top: 8px}
+
+    .meta{
+      margin-top: auto;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
     }
 
-    .contact-value a:hover {
-      opacity: 0.6;
+    .tags{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    @media (max-width: 768px) {
-      .page {
-        padding: 40px 30px;
-      }
+    .tag{
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(243,244,246,.72);
+    }
 
-      .hero,
-      .about-grid,
-      .projects-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
+    .links{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-      h1 {
-        font-size: 60px;
-      }
+    .link{
+      font-size: 13px;
+      text-decoration:none;
+      color: rgba(243,244,246,.90);
+      border-bottom: 1px solid rgba(243,244,246,.35);
+      padding-bottom: 2px;
+    }
+    .link:hover{border-bottom-color: rgba(34,211,238,.65)}
 
-      h2 {
-        font-size: 50px;
-      }
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
 
-      .page-number,
-      .page-label {
-        top: 20px;
-        left: 30px;
-        right: auto;
-      }
+    .about{
+      padding: 18px;
+    }
+    .about p{margin-top: 8px}
 
-      .arrow {
-        bottom: 20px;
-        right: 30px;
-      }
+    .kstack{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .footer{
+      padding: 18px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted2);
+      font-size: 13px;
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    /* Recruiter Mode */
+    body.recruiter{
+      --p: .98rem;
+    }
+    body.recruiter .proj{min-height: 210px}
+    body.recruiter .lead{max-width: 85ch}
+    body.recruiter .cards{grid-template-columns: repeat(2, minmax(0, 1fr))}
+    body.recruiter .hero{padding-top: 26px}
+    body.recruiter section{padding: 54px 0}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .grid{grid-template-columns: 1fr}
+      .nav-cta{min-width: unset}
+      .cards{grid-template-columns: repeat(2, minmax(0, 1fr))}
+    }
+    @media (max-width: 640px){
+      .nav-links{display:none}
+      .cards{grid-template-columns: 1fr}
+      .proof{grid-template-columns: 1fr;}
+      .two{grid-template-columns: 1fr}
+      .brand{min-width: unset}
+      .nav-cta{justify-content: flex-end}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .btn, .proj, .chip{transition:none}
+    }
+
+    /* Small helper */
+    .sr{
+      position:absolute;
+      width:1px; height:1px;
+      padding:0; margin:-1px;
+      overflow:hidden;
+      clip: rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    /* Active section highlight */
+    .nav-links a.active{
+      color: var(--text);
+      background: rgba(34,211,238,.08);
+      border-color: rgba(34,211,238,.20);
     }
   </style>
 </head>
+
 <body>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <!-- Page 1: Hero -->
-  <div class="page">
-    <div class="page-label">Portfolio</div>
-    <div class="page-number">Page 01</div>
-    <div style="max-width: 900px;">
-      <h1>digital<br>portfolio</h1>
-      <p class="subtitle">Cloud engineering, AI/ML solutions, and intelligent systems</p>
-    </div>
-    <div class="arrow">↓</div>
-  </div>
+  <header class="nav" aria-label="Primary">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <div class="mark" aria-hidden="true">DK</div>
+        <div>
+          <b>David Osei Kumi</b>
+          <span>Cloud + AI/ML Engineer</span>
+        </div>
+      </a>
 
-  <!-- Page 2: About -->
-  <div class="page">
-    <div class="page-label">About</div>
-    <div class="page-number">Page 02</div>
-    <div style="max-width: 900px;">
-      <h2>about<br>me</h2>
-      <div class="about-content">
-        <p>I'm David Osei Kumi, a cloud engineer and AI/ML specialist focused on building scalable, intelligent systems that solve real-world problems.</p>
-        <p>My work spans AWS infrastructure, machine learning pipelines, and RAG-based AI assistants. I combine technical expertise with strategic thinking to deliver solutions that are both powerful and practical.</p>
-        <p>Based in Ghana, I bring a unique perspective to technology development, with experience in serverless architectures, CI/CD automation, and natural language processing.</p>
-      </div>
-    </div>
-    <div class="arrow">↓</div>
-  </div>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-  <!-- Page 3: AWS Projects (UPDATED) -->
-  <div class="page">
-    <div class="page-label">AWS Projects</div>
-    <div class="page-number">Page 03</div>
-    <div class="section-intro">
-      <h2>cloud<br>engineering</h2>
-      <p class="subtitle">Production-grade serverless architectures and AWS infrastructure solutions</p>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-number">01</div>
-        <h3 class="project-title">Audio Transcribe Pipeline</h3>
-        <p class="project-desc">Serverless audio transcription system with AWS Transcribe, Lambda, S3, and DynamoDB for automated processing</p>
-        <div class="tech-stack">
-          <span class="tech-tag">AWS Lambda</span>
-          <span class="tech-tag">Transcribe</span>
-          <span class="tech-tag">DynamoDB</span>
-          <span class="tech-tag">S3</span>
-          <span class="tech-tag">SAM</span>
-        </div>
-        <a href="https://github.com/dkumi12/serverless-audio-transcribe" class="project-link">GitHub →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">02</div>
-        <h3 class="project-title">AI Customer Service Bot</h3>
-        <p class="project-desc">Intelligent chatbot using Amazon Bedrock (Titan), Lambda, DynamoDB with context-aware conversations and smart escalation</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Bedrock</span>
-          <span class="tech-tag">Lambda</span>
-          <span class="tech-tag">DynamoDB</span>
-          <span class="tech-tag">SNS</span>
-        </div>
-        <a href="https://github.com/dkumi12/ai-customer-service-bot" class="project-link">GitHub →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">03</div>
-        <h3 class="project-title">Serverless Todo API</h3>
-        <p class="project-desc">Full-stack serverless CRUD application with API Gateway, Lambda, DynamoDB, and vanilla JavaScript frontend</p>
-        <div class="tech-stack">
-          <span class="tech-tag">API Gateway</span>
-          <span class="tech-tag">Lambda</span>
-          <span class="tech-tag">DynamoDB</span>
-          <span class="tech-tag">SAM</span>
-        </div>
-        <a href="https://github.com/dkumi12/serverless-todo-api" class="project-link">GitHub →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">04</div>
-        <h3 class="project-title">Weekly Cost Reporter</h3>
-        <p class="project-desc">Automated AWS cost monitoring with Lambda, Cost Explorer API, S3 dashboard, SNS alerts, and Terraform IaC</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Lambda</span>
-          <span class="tech-tag">Cost Explorer</span>
-          <span class="tech-tag">S3</span>
-          <span class="tech-tag">Terraform</span>
-        </div>
-        <a href="https://github.com/dkumi12/weekly-cost-reporter" class="project-link">GitHub →</a>
-        <a href="https://cloud-cost-dashboard-dkumi12.s3.us-east-1.amazonaws.com/index.html" class="project-link">Dashboard →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">05</div>
-        <h3 class="project-title">Cloud Security Scout</h3>
-        <p class="project-desc">Automated security scanner for S3, EC2, RDS with real-time dashboard, DynamoDB storage, and SNS alerting</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Lambda</span>
-          <span class="tech-tag">DynamoDB</span>
-          <span class="tech-tag">SNS</span>
-          <span class="tech-tag">SAM</span>
-        </div>
-        <a href="https://github.com/dkumi12/cloud-security-scout" class="project-link">GitHub →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">06</div>
-        <h3 class="project-title">Bastion Host VPC</h3>
-        <p class="project-desc">Secure AWS VPC architecture with bastion host for controlled SSH access and network segmentation</p>
-        <div class="tech-stack">
-          <span class="tech-tag">AWS VPC</span>
-          <span class="tech-tag">EC2</span>
-          <span class="tech-tag">Security Groups</span>
-          <span class="tech-tag">SSH</span>
-        </div>
-        <a href="https://www.linkedin.com/posts/david-osei-kumi_awsbastionhost-activity-7363175127468916736-Mx6x" class="project-link">View Project →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">07</div>
-        <h3 class="project-title">CI/CD Pipeline</h3>
-        <p class="project-desc">Automated deployment workflow using GitHub Actions, AWS Lambda, and ECS for continuous integration</p>
-        <div class="tech-stack">
-          <span class="tech-tag">GitHub Actions</span>
-          <span class="tech-tag">AWS Lambda</span>
-          <span class="tech-tag">ECS</span>
-          <span class="tech-tag">Docker</span>
-        </div>
-        <a href="https://www.linkedin.com/posts/david-osei-kumi_awscicdgithubactionshands-on-activity-7368570428220547072-7j8r" class="project-link">View Project →</a>
+      <div class="nav-cta">
+        <button class="btn" id="modeBtn" type="button" aria-pressed="false" title="Toggle Recruiter Mode">
+          Recruiter Mode
+        </button>
+        <a class="btn btn-primary" href="#contact">View Resume</a>
       </div>
     </div>
-    <div class="arrow">↓</div>
-  </div>
+  </header>
 
-  <!-- Page 4: AI/ML Projects -->
-  <div class="page">
-    <div class="page-label">AI/ML</div>
-    <div class="page-number">Page 04</div>
-    <div class="section-intro">
-      <h2>machine<br>learning</h2>
-      <p class="subtitle">Production ML systems with enterprise-grade infrastructure and deployment pipelines</p>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-number">01</div>
-        <h3 class="project-title">PulseDesk AI Classifier</h3>
-        <p class="project-desc">Production ML system with fine-tuned DistilBERT achieving 94% accuracy. Features FastAPI backend, Docker deployment, GitHub Actions CI/CD, and Prometheus monitoring</p>
-        <div class="tech-stack">
-          <span class="tech-tag">DistilBERT</span>
-          <span class="tech-tag">FastAPI</span>
-          <span class="tech-tag">Docker</span>
-          <span class="tech-tag">MLflow</span>
-          <span class="tech-tag">Prometheus</span>
-        </div>
-        <a href="https://github.com/dkumi12/Customer-Support-Classifier-" class="project-link">GitHub →</a>
-        <a href="https://huggingface.co/spaces/dkumi12/pulsedesk-ai" class="project-link">Live Demo →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">02</div>
-        <h3 class="project-title">Handwritten Character Recognition</h3>
-        <p class="project-desc">Deep learning CNN using MobileNetV2 transfer learning for 62-class character recognition (A-Z, a-z, 0-9) achieving 94.28% top-3 accuracy</p>
-        <div class="tech-stack">
-          <span class="tech-tag">TensorFlow</span>
-          <span class="tech-tag">MobileNetV2</span>
-          <span class="tech-tag">FastAPI</span>
-          <span class="tech-tag">Docker</span>
-        </div>
-        <a href="https://github.com/dkumi12/Hand-Written-Recognition-Model" class="project-link">GitHub →</a>
-        <a href="https://huggingface.co/spaces/dkumi12/handwritten-cnn" class="project-link">Live Demo →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">03</div>
-        <h3 class="project-title">Credit Score Prediction</h3>
-        <p class="project-desc">Random Forest classifier predicting credit risk with SageMaker deployment, Terraform IaC, and comprehensive feature engineering pipeline</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Random Forest</span>
-          <span class="tech-tag">SageMaker</span>
-          <span class="tech-tag">Terraform</span>
-          <span class="tech-tag">Scikit-learn</span>
-        </div>
-        <a href="https://github.com/dkumi12/Credit-Score-Model" class="project-link">GitHub →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">04</div>
-        <h3 class="project-title">Diabetes Risk Prediction</h3>
-        <p class="project-desc">Logistic regression model for diabetes risk assessment with clinical accuracy</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Scikit-learn</span>
-          <span class="tech-tag">Pandas</span>
-          <span class="tech-tag">Logistic Regression</span>
-        </div>
-        <a href="https://drive.google.com/file/d/1hoIQCRD1QaDpfL4OXObbvlT3WKcx4lNd/view" class="project-link">View Demo →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">05</div>
-        <h3 class="project-title">Sentiment Analysis</h3>
-        <p class="project-desc">Natural language processing model for classifying sentiment in text data</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">NLP</span>
-          <span class="tech-tag">TensorFlow</span>
-          <span class="tech-tag">NLTK</span>
-        </div>
-        <a href="#" class="project-link">View Project →</a>
-      </div>
-    </div>
-    <div class="arrow">↓</div>
-  </div>
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="wrap grid">
+        <div class="card hero-card" aria-label="Intro">
+          <div class="kicker">
+            <span class="pill">Accra, Ghana</span>
+            <span class="pill">AWS • Serverless • MLOps • RAG</span>
+          </div>
 
-  <!-- Page 5: RAG Systems -->
-  <div class="page">
-    <div class="page-label">RAG Systems</div>
-    <div class="page-number">Page 05</div>
-    <div class="section-intro">
-      <h2>intelligent<br>assistants</h2>
-      <p class="subtitle">Retrieval-Augmented Generation systems for contextual understanding</p>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-number">01</div>
-        <h3 class="project-title">DocuScope AI</h3>
-        <p class="project-desc">Advanced RAG assistant for document analysis using vector embeddings and semantic search</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Ollama</span>
-          <span class="tech-tag">ChromaDB</span>
-          <span class="tech-tag">LangChain</span>
-          <span class="tech-tag">RAG</span>
-        </div>
-        <a href="https://www.linkedin.com/posts/david-osei-kumi_raghands-on-activity-7376124696909742080-baxg" class="project-link">LinkedIn Post →</a>
-        <a href="https://drive.google.com/file/d/16uM_JnU7w7dcf38A7xCfFSuJXG4KhKw9/view?usp=sharing" class="project-link">View Demo →</a>
-      </div>
-    </div>
-    <div class="arrow">↓</div>
-  </div>
+          <h1>Building production-grade <span style="color:rgba(34,211,238,.92)">cloud</span> + <span style="color:rgba(124,58,237,.92)">AI</span> systems that ship.</h1>
+          <p class="lead">I design and deploy scalable AWS infrastructure, ML pipelines, and RAG assistants. My focus: clean architecture, automation, and measurable outcomes.</p>
 
-  <!-- Page 6: Applied Apps -->
-  <div class="page">
-    <div class="page-label">Applications</div>
-    <div class="page-number">Page 06</div>
-    <div class="section-intro">
-      <h2>applied<br>ventures</h2>
-      <p class="subtitle">Production applications solving real-world health and wellness challenges</p>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-number">01</div>
-        <h3 class="project-title">LIMBRA App</h3>
-        <p class="project-desc">AI-powered stretching assistant for personalized wellness routines</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Next.js</span>
-          <span class="tech-tag">React</span>
-          <span class="tech-tag">OpenAI</span>
-          <span class="tech-tag">Vercel</span>
-        </div>
-        <a href="https://limbraapp.vercel.app/" class="project-link">Live Demo →</a>
-      </div>
-      <div class="project-card">
-        <div class="project-number">02</div>
-        <h3 class="project-title">Metriburn</h3>
-        <p class="project-desc">Intelligent calorie tracking system with fitness analytics</p>
-        <div class="tech-stack">
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">Streamlit</span>
-          <span class="tech-tag">Pandas</span>
-          <span class="tech-tag">AI/ML</span>
-        </div>
-        <a href="https://metriburn-ebhnww.streamlit.app/" class="project-link">Live Demo →</a>
-      </div>
-    </div>
-    <div class="arrow">↓</div>
-  </div>
+          <div class="cta-row" role="group" aria-label="Primary links">
+            <a class="btn btn-primary" href="https://github.com/dkumi12" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/david-osei-kumi" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn" href="mailto:12dkumi@gmail.com">Email</a>
+            <a class="btn" href="#projects">Browse Projects</a>
+          </div>
 
-  <!-- Page 7: Contact -->
-  <div class="page">
-    <div class="page-label">Contact</div>
-    <div class="page-number">Page 07</div>
-    <h2>get in<br>touch</h2>
-    <div class="contact-grid">
-      <div>
-        <div class="contact-item">
-          <div class="contact-label">Email</div>
-          <div class="contact-value"><a href="mailto:12dkumi@gmail.com">12dkumi@gmail.com</a></div>
+          <div class="proof" aria-label="Quick proof points">
+            <div class="stat">
+              <b>94% accuracy</b>
+              <span>DistilBERT classifier (PulseDesk)</span>
+            </div>
+            <div class="stat">
+              <b>Serverless-first</b>
+              <span>SAM, Lambda, DynamoDB, S3</span>
+            </div>
+            <div class="stat">
+              <b>Deployed demos</b>
+              <span>Hugging Face, Vercel, S3</span>
+            </div>
+          </div>
         </div>
-        <div class="contact-item">
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value"><a href="https://www.linkedin.com/in/david-osei-kumi">david-osei-kumi</a></div>
-        </div>
-      </div>
-      <div>
-        <div class="contact-item">
-          <div class="contact-label">GitHub</div>
-          <div class="contact-value"><a href="https://github.com/dkumi12">dkumi12</a></div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-label">Location</div>
-          <div class="contact-value">Accra, Ghana</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
+        <aside class="card side" aria-label="Highlights">
+          <div class="mini">
+            <h3>What I build</h3>
+            <ul class="list">
+              <li><span class="dot"></span><span>Serverless pipelines (ingest → process → store → notify)</span></li>
+              <li><span class="dot"></span><span>ML services (FastAPI + Docker + CI/CD + monitoring)</span></li>
+              <li><span class="dot"></span><span>RAG assistants (chunking, embeddings, retrieval, eval)</span></li>
+            </ul>
+          </div>
+          <div class="mini">
+            <h3>Currently sharpening</h3>
+            <p>LLM evaluation & regression testing, MLflow experiment tracking, and performance profiling for production CV/LLM systems.</p>
+          </div>
+          <div class="mini">
+            <h3>Fast contact</h3>
+            <p><span style="color:rgba(243,244,246,.85)">Email:</span> <a class="link" href="mailto:12dkumi@gmail.com">12dkumi@gmail.com</a></p>
+            <p style="margin-top:6px"><span style="color:rgba(243,244,246,.85)">GitHub:</span> <a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12">dkumi12</a></p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FEATURED WORK -->
+    <section id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Featured work</h2>
+            <p>Three builds that best represent how I ship: infrastructure + ML + product thinking.</p>
+          </div>
+        </div>
+
+        <div class="cards" aria-label="Featured projects">
+          <article class="proj" data-cat="ml" tabindex="0">
+            <div class="proj-top">
+              <h3>PulseDesk AI Classifier</h3>
+              <span class="badge">ML • 94% accuracy</span>
+            </div>
+            <p>Fine-tuned DistilBERT classifier with FastAPI, Docker, CI/CD, and monitoring for production readiness.</p>
+            <div class="meta">
+              <div class="tags">
+                <span class="tag">DistilBERT</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">MLflow</span><span class="tag">Prometheus</span>
+              </div>
+              <div class="links">
+                <a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/Customer-Support-Classifier-">GitHub</a>
+                <a class="link" target="_blank" rel="noreferrer" href="https://huggingface.co/spaces/dkumi12/pulsedesk-ai">Live Demo</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top">
+              <h3>Weekly Cost Reporter</h3>
+              <span class="badge">Cloud • FinOps</span>
+            </div>
+            <p>AWS cost monitoring with Lambda + Cost Explorer, SNS alerts, and an S3-hosted dashboard (Terraform IaC).</p>
+            <div class="meta">
+              <div class="tags">
+                <span class="tag">Lambda</span><span class="tag">Cost Explorer</span><span class="tag">S3</span><span class="tag">SNS</span><span class="tag">Terraform</span>
+              </div>
+              <div class="links">
+                <a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/weekly-cost-reporter">GitHub</a>
+                <a class="link" target="_blank" rel="noreferrer" href="https://cloud-cost-dashboard-dkumi12.s3.us-east-1.amazonaws.com/index.html">Dashboard</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="rag" tabindex="0">
+            <div class="proj-top">
+              <h3>DocuScope AI</h3>
+              <span class="badge">RAG • Document AI</span>
+            </div>
+            <p>RAG assistant for document analysis using embeddings + semantic retrieval with a local SLM (Ollama) workflow.</p>
+            <div class="meta">
+              <div class="tags">
+                <span class="tag">Ollama</span><span class="tag">ChromaDB</span><span class="tag">LangChain</span><span class="tag">RAG</span><span class="tag">Python</span>
+              </div>
+              <div class="links">
+                <a class="link" target="_blank" rel="noreferrer" href="https://www.linkedin.com/posts/david-osei-kumi_raghands-on-activity-7376124696909742080-baxg">LinkedIn</a>
+                <a class="link" target="_blank" rel="noreferrer" href="https://drive.google.com/file/d/16uM_JnU7w7dcf38A7xCfFSuJXG4KhKw9/view?usp=sharing">Demo</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section id="capabilities">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Capabilities</h2>
+            <p>Traditional fundamentals (reliable systems, clear documentation, security boundaries) + modern execution (automation, eval harnesses, agentic workflows).</p>
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="card about">
+            <h3>Cloud engineering</h3>
+            <p>Serverless architectures, VPC/network patterns, IAM, CI/CD, and cost/security monitoring.</p>
+            <div class="kstack" aria-label="Cloud skills">
+              <span class="tag">AWS Lambda</span><span class="tag">API Gateway</span><span class="tag">DynamoDB</span><span class="tag">S3</span><span class="tag">SNS</span><span class="tag">VPC</span><span class="tag">Terraform</span><span class="tag">SAM</span>
+            </div>
+          </div>
+          <div class="card about">
+            <h3>AI / ML engineering</h3>
+            <p>Training, evaluation, packaging, deployment, and monitoring for ML services and LLM apps.</p>
+            <div class="kstack" aria-label="ML skills">
+              <span class="tag">PyTorch/TensorFlow</span><span class="tag">Scikit-learn</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">MLflow</span><span class="tag">Prometheus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALL PROJECTS (FILTERS) -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Projects</h2>
+            <p>Filter by category. Each project highlights the stack and the link to proof (repo/demo/post).</p>
+          </div>
+          <div class="chips" role="group" aria-label="Project filters">
+            <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="chip" type="button" data-filter="cloud" aria-pressed="false">Cloud</button>
+            <button class="chip" type="button" data-filter="ml" aria-pressed="false">AI/ML</button>
+            <button class="chip" type="button" data-filter="rag" aria-pressed="false">RAG</button>
+            <button class="chip" type="button" data-filter="apps" aria-pressed="false">Apps</button>
+          </div>
+        </div>
+
+        <div class="cards" id="projectGrid" aria-label="All projects">
+          <!-- Cloud -->
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>Audio Transcribe Pipeline</h3><span class="badge">Cloud • Serverless</span></div>
+            <p>Automated audio transcription with Transcribe + Lambda + S3 + DynamoDB for hands-free processing.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Lambda</span><span class="tag">Transcribe</span><span class="tag">DynamoDB</span><span class="tag">S3</span><span class="tag">SAM</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/serverless-audio-transcribe">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>AI Customer Service Bot</h3><span class="badge">Cloud • LLM</span></div>
+            <p>Context-aware chatbot using Bedrock + Lambda + DynamoDB with escalation patterns.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Bedrock</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">SNS</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/ai-customer-service-bot">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>Serverless Todo API</h3><span class="badge">Cloud • API</span></div>
+            <p>CRUD app with API Gateway + Lambda + DynamoDB + vanilla JS frontend.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">API Gateway</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">SAM</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/serverless-todo-api">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>Weekly Cost Reporter</h3><span class="badge">Cloud • FinOps</span></div>
+            <p>Cost Explorer automation + SNS alerts + S3 dashboard with Terraform IaC.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Lambda</span><span class="tag">Cost Explorer</span><span class="tag">S3</span><span class="tag">Terraform</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/weekly-cost-reporter">GitHub</a><a class="link" target="_blank" rel="noreferrer" href="https://cloud-cost-dashboard-dkumi12.s3.us-east-1.amazonaws.com/index.html">Dashboard</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>Cloud Security Scout</h3><span class="badge">Cloud • Security</span></div>
+            <p>Automated security scanner for AWS resources with dashboard storage + SNS notifications.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">SNS</span><span class="tag">SAM</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/cloud-security-scout">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>Bastion Host VPC</h3><span class="badge">Cloud • Networking</span></div>
+            <p>Secure VPC segmentation with bastion access pattern for controlled SSH entry.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">VPC</span><span class="tag">EC2</span><span class="tag">Security Groups</span><span class="tag">SSH</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://www.linkedin.com/posts/david-osei-kumi_awsbastionhost-activity-7363175127468916736-Mx6x">Post</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="cloud" tabindex="0">
+            <div class="proj-top"><h3>CI/CD Pipeline</h3><span class="badge">Cloud • DevOps</span></div>
+            <p>Automated deployment workflow with GitHub Actions + AWS services for continuous delivery.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Docker</span><span class="tag">ECS</span><span class="tag">Lambda</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://www.linkedin.com/posts/david-osei-kumi_awscicdgithubactionshands-on-activity-7368570428220547072-7j8r">Post</a></div>
+            </div>
+          </article>
+
+          <!-- AI/ML -->
+          <article class="proj" data-cat="ml" tabindex="0">
+            <div class="proj-top"><h3>PulseDesk AI Classifier</h3><span class="badge">AI/ML • NLP</span></div>
+            <p>DistilBERT classifier (94% accuracy) with FastAPI + Docker + CI/CD + monitoring.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">DistilBERT</span><span class="tag">FastAPI</span><span class="tag">Docker</span><span class="tag">MLflow</span><span class="tag">Prometheus</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/Customer-Support-Classifier-">GitHub</a><a class="link" target="_blank" rel="noreferrer" href="https://huggingface.co/spaces/dkumi12/pulsedesk-ai">Demo</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="ml" tabindex="0">
+            <div class="proj-top"><h3>Handwritten Character Recognition</h3><span class="badge">AI/ML • CV</span></div>
+            <p>MobileNetV2 transfer learning for 62-class recognition (94.28% top-3 accuracy).</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">TensorFlow</span><span class="tag">MobileNetV2</span><span class="tag">Docker</span><span class="tag">FastAPI</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/Hand-Written-Recognition-Model">GitHub</a><a class="link" target="_blank" rel="noreferrer" href="https://huggingface.co/spaces/dkumi12/handwritten-cnn">Demo</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="ml" tabindex="0">
+            <div class="proj-top"><h3>Credit Score Prediction</h3><span class="badge">AI/ML • Tabular</span></div>
+            <p>Random Forest credit risk prediction with SageMaker deployment + Terraform IaC workflow.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Random Forest</span><span class="tag">SageMaker</span><span class="tag">Terraform</span><span class="tag">Scikit-learn</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://github.com/dkumi12/Credit-Score-Model">GitHub</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="ml" tabindex="0">
+            <div class="proj-top"><h3>Diabetes Risk Prediction</h3><span class="badge">AI/ML • Healthcare</span></div>
+            <p>Logistic regression model for diabetes risk assessment with a clear preprocessing pipeline.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">LogReg</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://drive.google.com/file/d/1hoIQCRD1QaDpfL4OXObbvlT3WKcx4lNd/view">Demo</a></div>
+            </div>
+          </article>
+
+          <!-- RAG -->
+          <article class="proj" data-cat="rag" tabindex="0">
+            <div class="proj-top"><h3>DocuScope AI</h3><span class="badge">RAG • Document AI</span></div>
+            <p>Vector retrieval + semantic search with local SLM workflows for privacy-friendly document understanding.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Ollama</span><span class="tag">ChromaDB</span><span class="tag">LangChain</span><span class="tag">RAG</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://www.linkedin.com/posts/david-osei-kumi_raghands-on-activity-7376124696909742080-baxg">Post</a><a class="link" target="_blank" rel="noreferrer" href="https://drive.google.com/file/d/16uM_JnU7w7dcf38A7xCfFSuJXG4KhKw9/view?usp=sharing">Demo</a></div>
+            </div>
+          </article>
+
+          <!-- Apps -->
+          <article class="proj" data-cat="apps" tabindex="0">
+            <div class="proj-top"><h3>LIMBRA App</h3><span class="badge">App • Wellness</span></div>
+            <p>AI-powered stretching assistant for personalized wellness routines (deployed on Vercel).</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">Vercel</span><span class="tag">OpenAI</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://limbraapp.vercel.app/">Live</a></div>
+            </div>
+          </article>
+
+          <article class="proj" data-cat="apps" tabindex="0">
+            <div class="proj-top"><h3>Metriburn</h3><span class="badge">App • Analytics</span></div>
+            <p>Calorie tracking + fitness analytics in a lightweight Streamlit experience.</p>
+            <div class="meta">
+              <div class="tags"><span class="tag">Streamlit</span><span class="tag">Python</span><span class="tag">Pandas</span></div>
+              <div class="links"><a class="link" target="_blank" rel="noreferrer" href="https://metriburn-ebhnww.streamlit.app/">Live</a></div>
+            </div>
+          </article>
+        </div>
+
+        <p id="empty" class="sr" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="writing">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Writing</h2>
+            <p>Short-form technical storytelling — the same way I document projects and decisions.</p>
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="card about">
+            <h3>Cloud notes</h3>
+            <p>Architecture lessons, Terraform learnings, and AWS system design breakdowns.</p>
+            <div class="cta-row" style="margin-top:12px">
+              <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/david-osei-kumi">LinkedIn posts</a>
+            </div>
+          </div>
+          <div class="card about">
+            <h3>ML notes</h3>
+            <p>Production ML patterns: evaluation, monitoring, deployment, and model iteration discipline.</p>
+            <div class="cta-row" style="margin-top:12px">
+              <a class="btn" target="_blank" rel="noreferrer" href="https://github.com/dkumi12">GitHub repos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>About</h2>
+            <p>I build with a practical mindset: ship the smallest reliable system first, then iterate with instrumentation and feedback.</p>
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="card about">
+            <h3>Bio</h3>
+            <p style="margin-top:8px">I’m David Osei Kumi, a cloud engineer and AI/ML specialist focused on building scalable systems that solve real-world problems. My work spans AWS infrastructure, machine learning pipelines, and RAG-based assistants.</p>
+            <p style="margin-top:10px">Based in Ghana, I combine technical execution with clear documentation and product thinking.</p>
+          </div>
+          <div class="card about">
+            <h3>Gaps I’m actively closing</h3>
+            <ul class="list" style="margin-top:10px">
+              <li><span class="dot"></span><span>More public case studies with metrics (latency, cost, eval scores)</span></li>
+              <li><span class="dot"></span><span>Stronger LLM eval harnesses + regression testing for RAG</span></li>
+              <li><span class="dot"></span><span>More “design docs” to show decision-making, not just code</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="card" style="padding: 22px;">
+          <div class="section-head" style="margin-bottom:10px">
+            <div>
+              <h2>Contact</h2>
+              <p>Best way to reach me: email. I respond with next steps and relevant links.</p>
+            </div>
+            <div class="chips">
+              <span class="pill">Email: 12dkumi@gmail.com</span>
+              <span class="pill">Location: Accra, Ghana</span>
+            </div>
+          </div>
+
+          <div class="cta-row" style="margin-top: 8px">
+            <a class="btn btn-primary" href="mailto:12dkumi@gmail.com">Email me</a>
+            <a class="btn" target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/david-osei-kumi">LinkedIn</a>
+            <a class="btn" target="_blank" rel="noreferrer" href="https://github.com/dkumi12">GitHub</a>
+          </div>
+
+          <div class="footer" role="contentinfo">
+            <span>© <span id="year"></span> David Osei Kumi</span>
+            <span style="font-family:var(--mono)">Built as a single-file site • fast to deploy</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Recruiter Mode toggle (dense view)
+    const modeBtn = document.getElementById('modeBtn');
+    const key = 'dk_portfolio_mode';
+
+    function setMode(isRecruiter){
+      document.body.classList.toggle('recruiter', isRecruiter);
+      modeBtn.setAttribute('aria-pressed', String(isRecruiter));
+      modeBtn.textContent = isRecruiter ? 'Recruiter Mode: ON' : 'Recruiter Mode';
+      try{ localStorage.setItem(key, isRecruiter ? 'on' : 'off'); }catch(e){}
+    }
+
+    const saved = (() => { try { return localStorage.getItem(key); } catch(e) { return null; }})();
+    if(saved === 'on') setMode(true);
+
+    modeBtn.addEventListener('click', () => {
+      setMode(!document.body.classList.contains('recruiter'));
+    });
+
+    // Project filters
+    const chips = Array.from(document.querySelectorAll('.chip'));
+    const cards = Array.from(document.querySelectorAll('#projectGrid .proj'));
+    const empty = document.getElementById('empty');
+
+    function applyFilter(filter){
+      chips.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.filter === filter)));
+      let visible = 0;
+      cards.forEach(card => {
+        const show = (filter === 'all') || (card.dataset.cat === filter);
+        card.style.display = show ? '' : 'none';
+        if(show) visible++;
+      });
+      if(visible === 0){
+        empty.classList.remove('sr');
+        empty.textContent = 'No projects match that filter.';
+      } else {
+        empty.classList.add('sr');
+        empty.textContent = '';
+      }
+    }
+
+    chips.forEach(chip => chip.addEventListener('click', () => applyFilter(chip.dataset.filter)));
+
+    // Active nav link via IntersectionObserver
+    const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+
+    const map = new Map();
+    navLinks.forEach(a => map.set(a.getAttribute('href'), a));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          navLinks.forEach(a => a.classList.remove('active'));
+          const id = '#' + entry.target.id;
+          const link = map.get(id);
+          if(link) link.classList.add('active');
+        }
+      });
+    }, { root: null, threshold: 0.35 });
+
+    sections.forEach(s => io.observe(s));
+
+    // Keyboard: open first link on Enter for cards
+    document.querySelectorAll('.proj').forEach(card => {
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter'){
+          const a = card.querySelector('a.link');
+          if(a) a.click();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
